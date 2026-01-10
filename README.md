@@ -485,12 +485,7 @@ Contributions are welcome! Please fork the repository and submit a **Merge Reque
 6. Open a Merge Request
 
    <a href="https://gitlab.com/phellams/psshields/-/merge_requests/new"><img src="https://img.shields.io/badge/Open_Merge_Request-GitLab-orange?style=flat-square&logo=gitlab"></a>
-   > https://gitlab.com/phellams/pwsl/-/merge_requests/new
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+   > https://gitlab.com/phellams/psshields/-/merge_requests/new
 
 ## **Resources**
 
@@ -509,6 +504,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 🔹 [**@Shield.io**](https://shields.io/) - Shields.io documenation and examples \
 🔹 [**@Simple Icons**](https://simpleicons.org/) - Simple icons used with Shields.io
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 ## Support

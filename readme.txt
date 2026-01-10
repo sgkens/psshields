@@ -1,0 +1,30 @@
+## Notes:
+
+ - ADD: libs/argumentcompleters.psm1 to house argument completer functions using [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: IArgumentCompleter for colorGroups, colorNames, BadgeTypes, Platforms, [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: Additional paramters for Invoke-ShieldsCommander to support all cmdlets [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: Dependencies for Invoke-ShieldsCommander AsciiTableView to output some [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - UPDATE: update formatting and coloring for get-* cmdlets and [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: addtional colors to the colorsets [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: place holders for unfinished defined badge sets [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - MOVED: Get-PlatFormConfig to its own file, allow easier expandability [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: Depedancy miniforge for some psobject operations [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - MOVED: platformconfig.json to its own file, allow easier expandability [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - MOVED: DefinedColorsets to its own file, allow easier expandability [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: helper function New-AsciiColorText for colorizing text output [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - ADD: link <a> tag for html output in New-ShieldsBadge [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+
+## Feature Additions:
+
+ - Invoke-ShieldsCommander single engry point for all other cmdlets from within the [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Easy DX: via alias: ShieldsCommander, and ShieldSC [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531) 
+ - Output Params: -Preview, -ViewBadgeTypes, -ViewColorPallet,-ViewPlatforms, [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Display colorSets with the -ViewColorSets cmdlet [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)   
+ - Display defined Color Palettes and Color Groups with the -ViewBadgePallete and [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Display colorCroups with the -ViewColorGroups cmdlet [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Reference -ViewRawColorPallete returns the raw colors used in color sets pulled [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Generate defined shields badges for projects using the -set param or singlar [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Preview All Defined coloreds from Defined Badge Sets with the -Preview param [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Extend platform support by editing the platformconfig.json file [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Extend colorset support with definedcolorsets.json file [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
+ - Supports Link Generation for markdown and html outputs in New-ShieldsBadge [cf05b64399f2720](https://gitlab.com/phellams/psshields/-/commit/cf05b64399f27208d86d91e54f03c99df491e531)
