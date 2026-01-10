@@ -1,6 +1,9 @@
 # include dependencies
-using module ..\New-ColorConsole.psm1
-using module ..\Write-AsciiTable.psm1
+using module ..\libs\New-ColorConsole.psm1
+using module ..\libs\Write-AsciiTable.psm1
+using module .\Get-DefinedColorSets.psm1
+using module ..\libs\argumentcompleters.psm1
+using module ..\libs\miniforge.psm1
 
 function Invoke-ShieldsCommander {
     <#
@@ -16,9 +19,9 @@ function Invoke-ShieldsCommander {
         The set of badges to generate. Valid options are 'jsm', 'psm', 'docker', 'nuget'.    
     .PARAMETER Style
         The style of the badge. Valid options are 'flat', 'flat-square', 'social', and 'for-the-badge'. 
-    .PARAMETER Colorset
-        The color scheme for the badge. Valid options include various predefined color sets.
     .PARAMETER Colorsets
+        The color scheme for the badge. Valid options include various predefined color sets.
+    .PARAMETER ViewColorsets
         If specified, lists all available color sets.
     .PARAMETER Platform
         if you didnt specify a set a single badge will be generated outsite of the sets, and will need addtion information, plateform
@@ -73,38 +76,38 @@ function Invoke-ShieldsCommander {
     [cmdletbinding()]
     param(
         [parameter(Mandatory=$false)]
-        [string]$reponame,
+        [string]$Reponame,
 
         [parameter(Mandatory=$false)]
         [string]$Namespace, 
 
         [parameter(Mandatory=$false)]
-        [validateSet('jsm', 'psm', 'docker', 'nuget', 'custom')]
-        [string]$set,
-        # if single we need to hangle it by adding in addtional params that are not manditory
-        # add checks in begin to check for param presence if not then return exception or just return
-        # we need: platform and BadgeType
-        # Not expanding this function to allow single bagdye generation to make use of the rest of the function 
-        # as the colors and previews are good feature
+        [validateSet('jsm', 'psm', 'docker', 'nuget', 'custom', 'jekyll-theme-gem', 'gem')]
+        [string]$Set,
 
         [parameter(Mandatory=$false)]
-        [ValidateSet('gitlab', 'github', 'codecov', 'coveralls', 'docker', 'npm', 'powershell', 'choco', 'dotnet',
-                     'packagist', 'composer', 'pypi', 'rubygems', 'crates', 'pub', 'hex', 'cpan', 'maven', 
-                     'gradle', 'cargo', 'go', 'conda', 'homebrew', 'aur', 'snap', 'jsdelivr', 'status', 'license')]
-        [string]$platform, 
+        [ArgumentCompleter([PlatformTypeCompleter])]
+        [string]$Platform, 
 
         [parameter(Mandatory=$false)]
-        [ValidateSet('stars', 'forks', 'pipeline', 'version', 'downloads', 'issues', 'license', 
-                     'build', 'coverage', 'maintained', 'dependencies', 'security', 'quality', 
-                     'rating', 'docs', 'tests', 'release', 'issues', 'prs', 'contributors', 'size', 
-                     'platform','workflow', 'gitlab', 'installs', 'hitsperday', 'hitsperweek', 'hitspermonth', 'hitsperyear',
-                     'sizeMin', 'sizeZipped', 'likes', 'points'
-                    )]
+        [ArgumentCompleter([BadgeTypeCompleter])]
         [string]$BadgeType,
+        
+        [Parameter(Mandatory=$false)]
+        [ArgumentCompleter([ColorCompleter])]
+        [string]$LabelColor,
+        
+        [Parameter(Mandatory=$false)]
+        [ArgumentCompleter([ColorCompleter])]
+        [string]$MessageColor,
+        
+        [Parameter(Mandatory=$false)]
+        [ArgumentCompleter([ColorCompleter])]
+        [string]$LogoColor,
 
         [parameter(Mandatory=$false)]
         [validateSet('flat', 'flat-square', 'social', 'for-the-badge')]
-        [string]$style,
+        [string]$Style,
         
         [parameter(Mandatory=$false)]
         [validateSet('html','markdown','url')]
@@ -123,19 +126,19 @@ function Invoke-ShieldsCommander {
             'cotton-candy', 'baby-blue', 'minty-fresh', 'vanilla-cream', 'lilac-dream', 'peach-fuzz',
             'emerald-city', 'ruby-red', 'sapphire-night', 'amethyst-glow', 'diamond-cut' , 'topaz-fire'
         )]
-        [string]$colorset,
+        [string]$ColorSet,
 
         [parameter(Mandatory=$false)]
-        [switch]$colorsets,
+        [switch]$ViewColorSets,
         
         [parameter(Mandatory=$false)]
-        [switch]$preview, 
+        [switch]$Preview, 
 
         [parameter(Mandatory=$false)]
         [switch]$ViewBadgeTypes,
 
         [parameter(Mandatory=$false)]
-        [switch]$ViewBadgePallete,
+        [switch]$ViewColorPallete,
 
         [parameter(Mandatory=$false)]
         [ValidateSet('standard', 'bright', 'extended_216', 'grayscale')]
@@ -148,7 +151,13 @@ function Invoke-ShieldsCommander {
         [switch]$Compact,
 
         [parameter(Mandatory=$false)]
-        [switch]$ViewRawColorPallete
+        [switch]$ViewRawColorPallete, 
+
+        [parameter(Mandatory=$false)]
+        [switch]$ViewColorGroups,
+
+        [parameter(Mandatory=$false)]
+        [switch]$Raw
     )
 
     begin {
@@ -159,89 +168,13 @@ function Invoke-ShieldsCommander {
         if(!$OutputFormat){ $OutputFormat = 'markdown' }
         if(!$colorset){$colorset = 'azure-tech' }
 
+        $AsciiTableView_config = $global:__psshields.asciitableview
+
         # --- DEFINE THE COLORSET ARRAY HERE ----
         # ---------------------------------------
-        $color_sets = @(
-            # --- GROUP: MODERN TECH & CYBER ---
-            @{LabelColor = 'magenta3'; MessageColor = 'cyan1'; LogoColor = 'white'; ColorSet = 'cyberpunk' }
-            @{LabelColor = 'purple4'; MessageColor = 'springgreen1'; LogoColor = 'fuchsia'; ColorSet = 'neon-nights' }
-            @{LabelColor = 'darkblue'; MessageColor = 'dodgerblue1'; LogoColor = 'cyan1'; ColorSet = 'azure-tech' }
-            @{LabelColor = 'grey3'; MessageColor = 'green1'; LogoColor = 'lime'; ColorSet = 'matrix-console' }
-            @{LabelColor = 'deeppink4'; MessageColor = 'hotpink'; LogoColor = 'aquamarine1'; ColorSet = 'synthwave' }
-            @{LabelColor = 'navyblue'; MessageColor = 'gold1'; LogoColor = 'yellow1'; ColorSet = 'royal-tech' }
+        $color_sets = Get-DefinedColorSets
 
-            # --- GROUP: PROFESSIONAL & CORPORATE ---
-            @{LabelColor = 'steelblue3'; MessageColor = 'white'; LogoColor = 'white'; ColorSet = 'professional-blue' }
-            @{LabelColor = 'darkslategray3'; MessageColor = 'black'; LogoColor = 'cyan2'; ColorSet = 'slate-clean' }
-            @{LabelColor = 'navy'; MessageColor = 'grey85'; LogoColor = 'dodgerblue1'; ColorSet = 'corporate-dark' }
-            @{LabelColor = 'indigo'; MessageColor = 'lavender'; LogoColor = 'plum1'; ColorSet = 'executive' }
-            @{LabelColor = 'darkcyan'; MessageColor = 'aquamarine1'; LogoColor = 'white'; ColorSet = 'teal-accent' }
-            @{LabelColor = 'royalblue1'; MessageColor = 'white'; LogoColor = 'gold1'; ColorSet = 'trust-blue' }
-
-            # --- GROUP: HEAT & WARNING ---
-            @{LabelColor = 'maroon'; MessageColor = 'orange1'; LogoColor = 'yellow1'; ColorSet = 'magma' }
-            @{LabelColor = 'orangered1'; MessageColor = 'yellow1'; LogoColor = 'white'; ColorSet = 'sunset-glow' }
-            @{LabelColor = 'darkred'; MessageColor = 'white'; LogoColor = 'red1'; ColorSet = 'critical-alert' }
-            @{LabelColor = 'darkorange3'; MessageColor = 'navajowhite1'; LogoColor = 'gold1'; ColorSet = 'amber-lamps' }
-            @{LabelColor = 'crimson'; MessageColor = 'mistyrose1'; LogoColor = 'white'; ColorSet = 'cherry-blossom' }
-            @{LabelColor = 'darkgoldenrod'; MessageColor = 'gold1'; LogoColor = 'yellow1'; ColorSet = 'midas-gold' }
-
-            # --- GROUP: NATURE & EARTH ---
-            @{LabelColor = 'darkgreen'; MessageColor = 'springgreen2'; LogoColor = 'green1'; ColorSet = 'forest-guard' }
-            @{LabelColor = 'darkolivegreen'; MessageColor = 'khaki1'; LogoColor = 'yellow1'; ColorSet = 'camouflage' }
-            @{LabelColor = 'seagreen3'; MessageColor = 'white'; LogoColor = 'springgreen1'; ColorSet = 'ocean-foam' }
-            @{LabelColor = 'saddlebrown'; MessageColor = 'tan'; LogoColor = 'gold1'; ColorSet = 'earth-tone' }
-            @{LabelColor = 'darkslategray2'; MessageColor = 'darkcyan'; LogoColor = 'cyan1'; ColorSet = 'glacier-ice' }
-            @{LabelColor = 'chartreuse4'; MessageColor = 'greenyellow'; LogoColor = 'white'; ColorSet = 'toxic-waste' }
-
-            # --- GROUP: DARK, METAL & MONOCHROME ---
-            @{LabelColor = 'grey7'; MessageColor = 'grey89'; LogoColor = 'red1'; ColorSet = 'monolith' }
-            @{LabelColor = 'black'; MessageColor = 'white'; LogoColor = 'white'; ColorSet = 'noir' }
-            @{LabelColor = 'grey23'; MessageColor = 'silver'; LogoColor = 'cyan1'; ColorSet = 'brushed-metal' }
-            @{LabelColor = 'grey15'; MessageColor = 'maroon'; LogoColor = 'red1'; ColorSet = 'carbon-maroon' }
-            @{LabelColor = 'grey11'; MessageColor = 'dodgerblue2'; LogoColor = 'deepskyblue1'; ColorSet = 'stealth-bomber' }
-            @{LabelColor = 'grey30'; MessageColor = 'grey100'; LogoColor = 'green1'; ColorSet = 'typewriter' }
-
-            # --- GROUP: VINTAGE & RETRO ---
-            @{LabelColor = 'navajowhite3'; MessageColor = 'saddlebrown'; LogoColor = 'maroon'; ColorSet = 'old-paper' }
-            @{LabelColor = 'darkkhaki'; MessageColor = 'cornsilk1'; LogoColor = 'gold1'; ColorSet = 'military-issue' }
-            @{LabelColor = 'rosybrown'; MessageColor = 'mistyrose1'; LogoColor = 'white'; ColorSet = 'dusty-rose' }
-            @{LabelColor = 'tan'; MessageColor = 'black'; LogoColor = 'darkorange'; ColorSet = 'leather-bound' }
-            @{LabelColor = 'cadetblue'; MessageColor = 'aliceblue'; LogoColor = 'white'; ColorSet = 'faded-denim' }
-            @{LabelColor = 'indianred'; MessageColor = 'white'; LogoColor = 'gold1'; ColorSet = 'brick-house' }
-
-            # --- GROUP: HIGH VISIBILITY & ALERT ---
-            @{LabelColor = 'yellow1'; MessageColor = 'black'; LogoColor = 'red1'; ColorSet = 'construction' }
-            @{LabelColor = 'chartreuse1'; MessageColor = 'black'; LogoColor = 'magenta1'; ColorSet = 'bio-hazard' }
-            @{LabelColor = 'orange1'; MessageColor = 'black'; LogoColor = 'white'; ColorSet = 'safety-cone' }
-            @{LabelColor = 'cyan1'; MessageColor = 'black'; LogoColor = 'magenta1'; ColorSet = 'high-contrast' }
-            @{LabelColor = 'magenta1'; MessageColor = 'white'; LogoColor = 'yellow1'; ColorSet = 'glitch-pop' }
-            @{LabelColor = 'white'; MessageColor = 'red1'; LogoColor = 'black'; ColorSet = 'medical-alert' }
-
-            # --- GROUP: DEEP SPACE & SCIFI ---
-            @{LabelColor = 'midnightblue'; MessageColor = 'plum1'; LogoColor = 'cyan1'; ColorSet = 'nebula-core' } 
-            @{LabelColor = 'black'; MessageColor = 'darkviolet'; LogoColor = 'fuchsia'; ColorSet = 'void-walker' }
-            @{LabelColor = 'darkslateblue'; MessageColor = 'lightcyan1'; LogoColor = 'springgreen1'; ColorSet = 'alien-tech' }
-            @{LabelColor = 'indigo'; MessageColor = 'gold1'; LogoColor = 'orange1'; ColorSet = 'solar-flare' }
-            @{LabelColor = 'grey11'; MessageColor = 'deepskyblue3'; LogoColor = 'white'; ColorSet = 'moon-base' }
-            @{LabelColor = 'darkmagenta'; MessageColor = 'violet'; LogoColor = 'cyan1'; ColorSet = 'hyper-drive' }
-
-            # --- GROUP: SOFT & PASTEL ---
-            @{LabelColor = 'lightpink1'; MessageColor = 'deeppink4'; LogoColor = 'white'; ColorSet = 'cotton-candy' }
-            @{LabelColor = 'lightskyblue1'; MessageColor = 'navy'; LogoColor = 'dodgerblue1'; ColorSet = 'baby-blue' }
-            @{LabelColor = 'palegreen1'; MessageColor = 'darkgreen'; LogoColor = 'green1'; ColorSet = 'mint-fresh' }
-            @{LabelColor = 'wheat1'; MessageColor = 'saddlebrown'; LogoColor = 'orange3'; ColorSet = 'vanilla-cream' }
-            @{LabelColor = 'lavender'; MessageColor = 'purple4'; LogoColor = 'mediumorchid1'; ColorSet = 'lilac-dream' }
-            @{LabelColor = 'peachpuff'; MessageColor = 'red4'; LogoColor = 'coral'; ColorSet = 'peach-fuzz' }
-
-            # --- GROUP: ELEMENTAL & GEMSTONE ---
-            @{LabelColor = 'turquoise4'; MessageColor = 'turquoise2'; LogoColor = 'white'; ColorSet = 'emerald-city' }
-            @{LabelColor = 'darkred'; MessageColor = 'red1'; LogoColor = 'gold1'; ColorSet = 'ruby-red' }
-            @{LabelColor = 'darkblue'; MessageColor = 'cyan1'; LogoColor = 'white'; ColorSet = 'sapphire-night' }
-            @{LabelColor = 'purple4'; MessageColor = 'mediumorchid1'; LogoColor = 'white'; ColorSet = 'amethyst-glow' }
-            @{LabelColor = 'grey50'; MessageColor = 'white'; LogoColor = 'cyan1'; ColorSet = 'diamond-cut' }
-            @{LabelColor = 'darkorange3'; MessageColor = 'yellow1'; LogoColor = 'white'; ColorSet = 'topaz-fire' }
-        )
+        $color_pallete = Get-ColorPallete
 
         # Select the color set or use default
         $selected_color_set = $color_sets | Where-Object { $_.ColorSet -eq $colorset }
@@ -249,6 +182,16 @@ function Invoke-ShieldsCommander {
             $LabelColor = $selected_color_set.LabelColor
             $MessageColor = $selected_color_set.MessageColor
             $LogoColor = $selected_color_set.LogoColor
+        }
+
+        function New-AsciiColorString {
+            param (
+                [string]$ColorCode,
+                [string]$Text
+            )
+                $escapeSequence = [char]27
+                $reset = "${escapeSequence}[0m"
+                return "${escapeSequence}[38;5;${ColorCode}m$Text$reset"
         }
     }
     process{
@@ -265,11 +208,22 @@ function Invoke-ShieldsCommander {
                 return
             }
         }
+        if ($ViewColorGroups) {
 
-        if ($ViewBadgePallete) {
+            # Return via AsciiTable with red theme
+            if($raw){
+                Get-ColorGroups -raw
+                return
+            }else{
+                Get-ColorGroups
+                return
+            }
+
+        }
+        if ($ViewColorPallete) {
             # Takes 3 params -GroupName 'GroupName' -ShowCodes -Compact
             if(!$GroupName){
-                Get-BadgePalette
+                Get-BadgePalette      
             }
             elseif($GroupName -and !$ShowCodes -or !$Compact){
                 Get-BadgePalette -GroupName $GroupName
@@ -280,14 +234,48 @@ function Invoke-ShieldsCommander {
         }
 
         if ($ViewRawColorPallete) {
-            Get-ColorPallete
-            return
+            $colorpallet = Get-ColorPallete
+            if($raw){
+                $colorpallet
+                return
+            }else{
+                $colorpallet | Write-AsciiTable -Title "Color Pallete" -SummaryTitle "Displaying color count:" -ColorPallet $AsciiTableView_config.colorpallet
+                return 
+            }
+
         }
 
-        # if($colorsets){ 
-        #     $color_sets | select-Object colorset, logocolor, Labelcolor, MessageColor
-        #     return;    
-        # }
+        if($ViewColorSets){
+            if($raw){
+                $color_sets | Select-Object colorset, logocolor, Labelcolor, MessageColor
+                return;
+            }else {
+                $color_sets | Write-AsciiTable -Title "Color Sets" `
+                                               -SummaryTitle "Displaying color count:" `
+                                               -Property colorset, logocolor, Labelcolor, MessageColor `
+                                               -ColorPallet $AsciiTableView_config.colorpallet `
+                                               -format @{
+                                                    colorset = { New-ColorConsole -String $args[0] -Color darkcyan -Format italic }
+                                                    logocolor = {
+                                                        [int]$colorCode = $color_pallete | where-object{ $_.name -eq $args[0] } | Select-Object -ExpandProperty Code
+                                                        New-AsciiColorString -ColorCode 84 -Text $args[0]
+                                                        $colorCode=$null
+                                                    }
+                                                    Labelcolor = {
+                                                        [int]$colorCode = $color_pallete | where-object{ $_.name -eq $args[0] } | Select-Object -ExpandProperty Code
+                                                        New-AsciiColorString -ColorCode 85 -Text $args[0]
+                                                        $colorCode=$null
+                                                    }
+                                                    MessageColor = {
+                                                        [int]$colorCode = $color_pallete | where-object{ $_.name -eq $args[0] } | Select-Object -ExpandProperty Code
+                                                        New-AsciiColorString -ColorCode 166 -Text $args[0]
+                                                        $colorCode=$null
+                                                    }
+                                               }
+                return;
+            }
+        }
+
 
         if($preview){
             # 1. Build a lookup table from your Get-ColorPallete function
@@ -354,14 +342,13 @@ function Invoke-ShieldsCommander {
                 Write-Host "$PartLogo$PartLabel$PartMsg"
             }
         } else {
-            
+            $badges = $null
             switch ($set) {
                 'jsm' { 
                     $badges = @(
                         @{ Platform = 'gitlab'; BadgeType = 'license'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'gitlab'; BadgeType = 'pipeline'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'gitlab'; BadgeType = 'issues'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'contributors'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'npm'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'jsr'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'jsdelivr'; BadgeType = 'hitsperweek'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
@@ -380,6 +367,12 @@ function Invoke-ShieldsCommander {
                         @{ Platform = 'choco'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
                         @{ Platform = 'codecov'; BadgeType = 'coverage'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }
                     )
+                }
+                'ruby' {
+                    return 'Ruby Project Shields not yet implemented';
+                }
+                'jekyll-theme' {
+                    return 'jekyll-theme Project Shields not yet implemented';
                 }
                 'custom' {
                     # The Simple Generic Bages 

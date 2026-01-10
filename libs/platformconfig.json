@@ -1,0 +1,238 @@
+{
+    "dotnet": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "nuget",
+        "baseUrl": "https://img.shields.io/nuget"
+    },
+    "codecov": {
+        "badges": {
+            "coverage": "/github/{namespace}",
+            "gitlab": "/gitlab/{namespace}"
+        },
+        "defaultLogo": "codecov",
+        "baseUrl": "https://img.shields.io/codecov/c"
+    },
+    "powershell": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}",
+            "platform": "/p/{package}"
+        },
+        "defaultLogo": "powershell",
+        "baseUrl": "https://img.shields.io/powershellgallery"
+    },
+    "rubygems": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "rubygems",
+        "baseUrl": "https://img.shields.io/gem"
+    },
+    "pypi": {
+        "badges": {
+            "python": "/pyversions/{package}",
+            "downloads": "/dm/{package}",
+            "version": "/v/{package}",
+            "status": "/status/{package}",
+            "license": "/l/{package}"
+        },
+        "defaultLogo": "pypi",
+        "baseUrl": "https://img.shields.io/pypi"
+    },
+    "github": {
+        "badges": {
+            "forks": "/forks/{namespace}",
+            "license": "/license/{namespace}",
+            "stars": "/stars/{namespace}",
+            "workflow": "/actions/workflow/status/{namespace}/{workflow}",
+            "issues": "/issues/{namespace}",
+            "release": "/v/release/{namespace}"
+        },
+        "defaultLogo": "github",
+        "baseUrl": "https://img.shields.io/github"
+    },
+    "pub": {
+        "badges": {
+            "likes": "/likes/{package}",
+            "version": "/v/{package}",
+            "points": "/points/{package}"
+        },
+        "defaultLogo": "dart",
+        "baseUrl": "https://img.shields.io/pub"
+    },
+    "go": {
+        "badges": {
+            "version": "/go-mod/go-version/{namespace}"
+        },
+        "defaultLogo": "go",
+        "baseUrl": "https://img.shields.io/github"
+    },
+    "cpan": {
+        "badges": {
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "perl",
+        "baseUrl": "https://img.shields.io/cpan"
+    },
+    "coveralls": {
+        "badges": {
+            "coverage": "/github/{namespace}",
+            "gitlab": "/gitlab/{namespace}"
+        },
+        "defaultLogo": "coveralls",
+        "baseUrl": "https://img.shields.io/coveralls"
+    },
+    "homebrew": {
+        "badges": {
+            "installs": "/installs/dm/{package}",
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "homebrew",
+        "baseUrl": "https://img.shields.io/homebrew"
+    },
+    "choco": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "chocolatey",
+        "baseUrl": "https://img.shields.io/chocolatey"
+    },
+    "packagist": {
+        "badges": {
+            "php": "/php-v/{package}",
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}",
+            "license": "/l/{package}"
+        },
+        "defaultLogo": "packagist",
+        "baseUrl": "https://img.shields.io/packagist"
+    },
+    "aur": {
+        "badges": {
+            "votes": "/votes/{package}",
+            "version": "/version/{package}"
+        },
+        "defaultLogo": "archlinux",
+        "baseUrl": "https://img.shields.io/aur"
+    },
+    "composer": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}",
+            "license": "/l/{package}"
+        },
+        "defaultLogo": "composer",
+        "baseUrl": "https://img.shields.io/packagist"
+    },
+    "gradle": {
+        "badges": {
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "gradle",
+        "baseUrl": "https://img.shields.io/maven-central"
+    },
+    "jsdelivr": {
+        "badges": {
+            "hitsperyear": "/npm/hy/{package}",
+            "hitspermonth": "/npm/hm/{package}",
+            "hitsperday": "/npm/hd/{package}",
+            "hitsperweek": "/npm/hw/{package}"
+        },
+        "defaultLogo": "jsdelivr",
+        "baseUrl": "https://img.shields.io/jsdelivr"
+    },
+    "jsr": {
+        "badges": {
+            "version": "/v/%40{namespace}"
+        },
+        "defaultLogo": "jsr",
+        "baseUrl": "https://img.shields.io/jsr"
+    },
+    "conda": {
+        "badges": {
+            "downloads": "/dn/{namespace}/{package}",
+            "version": "/v/{namespace}/{package}",
+            "platform": "/pn/{namespace}/{package}"
+        },
+        "defaultLogo": "anaconda",
+        "baseUrl": "https://img.shields.io/conda"
+    },
+    "hex": {
+        "badges": {
+            "downloads": "/dt/{package}",
+            "version": "/v/{package}",
+            "license": "/l/{package}"
+        },
+        "defaultLogo": "elixir",
+        "baseUrl": "https://img.shields.io/hexpm"
+    },
+    "maven": {
+        "badges": {
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "apachemaven",
+        "baseUrl": "https://img.shields.io/maven-central"
+    },
+    "npm": {
+        "badges": {
+            "downloads": "/npm/dt/{package}",
+            "version": "/npm/v/{package}",
+            "sizeZipped": "/bundlephobia/minzip/{package}",
+            "sizeMin": "/bundlephobia/min/{package}",
+            "license": "/npm/l/{package}"
+        },
+        "defaultLogo": "npm",
+        "baseUrl": "https://img.shields.io"
+    },
+    "snap": {
+        "badges": {
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "snapcraft",
+        "baseUrl": "https://img.shields.io/snapcraft"
+    },
+    "docker": {
+        "badges": {
+            "pulls": "/pulls/{namespace}",
+            "size": "/image-size/{namespace}",
+            "version": "/v/{namespace}",
+            "stars": "/stars/{namespace}"
+        },
+        "defaultLogo": "docker",
+        "baseUrl": "https://img.shields.io/docker"
+    },
+    "crates": {
+        "badges": {
+            "downloads": "/d/{package}",
+            "version": "/v/{package}",
+            "license": "/l/{package}"
+        },
+        "defaultLogo": "rust",
+        "baseUrl": "https://img.shields.io/crates"
+    },
+    "cargo": {
+        "badges": {
+            "downloads": "/d/{package}",
+            "version": "/v/{package}"
+        },
+        "defaultLogo": "rust",
+        "baseUrl": "https://img.shields.io/crates"
+    },
+    "gitlab": {
+        "badges": {
+            "coverage": "/pipeline-coverage/{namespace}",
+            "forks": "/forks/{namespace}",
+            "license": "/license/{namespace}",
+            "stars": "/stars/{namespace}",
+            "pipeline": "/pipeline-status/{namespace}",
+            "issues": "/issues/open/{namespace}"
+        },
+        "defaultLogo": "gitlab",
+        "baseUrl": "https://img.shields.io/gitlab"
+    }
+}

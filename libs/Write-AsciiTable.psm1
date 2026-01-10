@@ -407,7 +407,7 @@ function Write-AsciiTable {
         # Calculate column widths
         $columnWidths = @{}
         foreach ($prop in $Property) {
-            $headerWidth = $prop.Length
+            $headerWidth = ($prop).Length
             $maxContentWidth = ($items | ForEach-Object {
                     
                     $value = "$($_.$prop)"
@@ -415,7 +415,7 @@ function Write-AsciiTable {
                     if ($Format.ContainsKey($prop)) {
                         $value = Invoke-Command -ScriptBlock $Format[$prop] -ArgumentList $_.$prop
                     }
-                    "$value".Length 
+                    "$($value)".Length 
                 } | Measure-Object -Maximum).Maximum
             
             $width = [Math]::Max($headerWidth, $maxContentWidth)
