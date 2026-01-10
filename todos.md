@@ -1,4 +1,4 @@
-# PSSHIELDS - TODOS
+# psshields - todos
 
 - [x] update `[gitlab]` tag to also referce the badge subtype for better readbility
 - [x] Add additional helper function called `Invoke-SheldsCommander` to allow for more complex badge types and allow then generation of bagdes for `json`, `yml`(Requires `YamlDotNet`(powershell module)), and `toml`(Requires `ptoml`(powershell module(`WIP`)))
@@ -10,4 +10,13 @@
   - [x] Add Support for `Get-BadgePalette` in `Invoke-SheldsCommander`
   - [x] Add Support for `Get-ColorPallete` in `Invoke-SheldsCommander`
 - [ ] Inhance `Get-ColorPallete` to output Name wrapped in the ASCII color codes
-- [ ] bring in asciitableview to output psobject in style, use universion theme
+  - [~] Discontinued idea, ran into padding issues from the particalar type of object i am using
+- [x] bring in ***asciitableview*** to output psobject in style, use universion theme
+- [ ] Invoke-ShieldCommander, default project repo platform type is set to gitlab, we need logic to allow the user because we have the platform param already used for default badges, we can use this, if platform param is flagged when generated bages, install of using the default gitlab we change this to github, perhaps a switch `-gitlab` `-github`
+- [ ] Enhance format:
+  - [ ] Shields generation output to output the Project Type, the badge count, and a example output of badges perhaps 3 to visaualize
+  - View Functions:
+    - [x] Ajust newline in bagde type output and make more compact
+    - [ ] `-preview` allow prview of only the the selected color set return
+- [ ] Add PHWriter for help generation and output, limit only to Exposed function `Invoke-SheildsCommander`, `New-BadgeType`, `New-CustomBadge`, and `New-ProjectBadge`(Note! ProjectBadge will be replaced with commander), dep function when MR:Success
+- [ ] Complete readme will detailed function refereces and examples
