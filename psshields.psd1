@@ -5,17 +5,19 @@
     Author             = 'Garvey k. Snow'
     CompanyName        = 'Phellams'
     Copyright          = '(c) 2026 Garvey k. Snow. All rights reserved.'
-    Description        = 'A PowerShell module for generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
+    Description        = 'Generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
     FunctionsToExport  = @(
         'New-ShieldBadge', 
-        'New-ProjectBadges', 
+        # 'New-ProjectBadges', 
         'New-CustomBadge', 
-        'New-StandardBadge',
+        # 'New-StandardBadge',
         'Get-ColorPallete',
         'Get-ColorGroups',
         'Get-BadgePalette',
         'Get-BadgeTypes',
-        'Invoke-ShieldsCommander'--
+        'Get-PlatformConfig',
+        'Get-DefinedColorSets',
+        'Invoke-ShieldsCommander'
     )
     CmdletsToExport    = @()
     VariablesToExport  = @()
@@ -40,9 +42,9 @@
             MailingListUrl           = 'https://github.com/phellams/psshields/issues'
             projectSourceUrl         = 'https://github.com/phellams/psshields'
             bugTrackerUrl            = 'https://github.com/phellams/psshields/issues'
-            Summary                  = 'A PowerShell module for generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
+            Summary                  = 'Generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
             # CHOCOLATE ---------------------
-            Prerelease               = ''
+            Prerelease               = 'beta'
 
         }        
     }
