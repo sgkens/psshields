@@ -35,7 +35,7 @@ function Invoke-ShieldsCommander {
         If specified, Outputs the available badge types. (Get-BadgeTypes), you can use the -plateform parameter to filter by -plateform
     .PARAMETER ViewBadgePallete
         If specified, Outputs the available color pallete. (Get-ColorPallete)
-    .PARAMETER GroupName
+    .PARAMETER PalleteGroup
         if specified with -ViewBadgePallete filters the color group by name Current options: standard, bright, extended_216, grayscale
     .PARAMETER ShowCodes
         if specified -ViewBadgePallete displays the color codes
@@ -142,7 +142,7 @@ function Invoke-ShieldsCommander {
 
         [parameter(Mandatory=$false)]
         [ValidateSet('standard', 'bright', 'extended_216', 'grayscale')]
-        [string]$GroupName,
+        [string]$PalleteGroup,
 
         [parameter(Mandatory=$false)]
         [switch]$ShowCodes,
@@ -254,6 +254,7 @@ function Invoke-ShieldsCommander {
                                                -SummaryTitle "Displaying color count:" `
                                                -Property colorset, logocolor, Labelcolor, MessageColor `
                                                -ColorPallet $AsciiTableView_config.colorpallet `
+                                               -TrimContent `
                                                -format @{
                                                     colorset = { New-ColorConsole -String $args[0] -Color darkcyan -Format italic }
                                                     logocolor = {
