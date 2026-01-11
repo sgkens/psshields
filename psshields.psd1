@@ -1,6 +1,6 @@
 @{
     RootModule         = 'psshields.psm1'
-    ModuleVersion      = '0.5.0'
+    ModuleVersion      = '0.5.1'
     GUID               = '019a8acf-6f78-706b-95f6-5bbeefe81d16'
     Author             = 'Garvey k. Snow'
     CompanyName        = 'Phellams'
