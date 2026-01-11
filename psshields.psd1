@@ -26,7 +26,7 @@
     )
     PrivateData        = @{
         PSData = @{
-            Tags                     = @('shield.io', 'badge', 'CLI', 'PowerShell', 'Documentation', 'readme', 'GitHub', 'GitLab', 'NPM', 'PyPI', 'Packagist', 'Crates.io', 'Pub.dev', 'Hex.pm', 'RubyGems', 'Maven', 'Conda', 'Homebrew')
+            Tags                     = @('shield.io', 'badge', 'CLI', 'PowerShell', 'Documentation', 'readme', 'GitHub', 'GitLab', 'NPM', 'PyPI', 'Packagist', 'Crates', 'Pub.dev', 'Hex.pm', 'RubyGems', 'Maven', 'Conda', 'Homebrew')
             ReleaseNotes             = @{
                 # '1.2.1' = 'Initial release with New-PHWriter cmdlet for custom help formatting and enhanced layout.'
             }
