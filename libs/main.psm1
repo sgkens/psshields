@@ -204,21 +204,21 @@ function New-ShieldBadge {
     if ($LabelColor) {
         # Convert color name to hex if it's a named color
         $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LabelColor } | Select-Object -First 1
-        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $LabelColor }
+        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '%23' } else { $LabelColor }
         $params += "labelColor=$colorValue"
     }
     
     if ($MessageColor) {
         # Convert color name to hex if it's a named color
         $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $MessageColor } | Select-Object -First 1
-        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $MessageColor }
+        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '%23' } else { $MessageColor }
         $params += "color=$colorValue"
     }
     
     if ($LogoColor) {
         # Convert color name to hex if it's a named color
         $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LogoColor } | Select-Object -First 1
-        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $LogoColor }
+        $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '%23' } else { $LogoColor }
         $params += "logoColor=$colorValue"
     }
     

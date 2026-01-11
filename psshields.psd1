@@ -1,6 +1,6 @@
 @{
     RootModule         = 'psshields.psm1'
-    ModuleVersion      = '0.5.0'
+    ModuleVersion      = '0.5.1'
     GUID               = '019a8acf-6f78-706b-95f6-5bbeefe81d16'
     Author             = 'Garvey k. Snow'
     CompanyName        = 'Phellams'
@@ -45,7 +45,7 @@
             bugTrackerUrl            = 'https://github.com/phellams/psshields/issues'
             Summary                  = 'Generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
             # CHOCOLATE ---------------------
-            Prerelease               = 'beta'
+            Prerelease               = 'prerelease+build.1'
 
         }        
     }
