@@ -392,7 +392,7 @@ Colors can be specified as:
 -MessageColor "blue"      # Running
 ```
 
-## Badge Styles
+## **Badge Styles**
 
 Shield.io supports multiple visual styles:
 
@@ -410,7 +410,7 @@ New-CustomBadge -Label "style" `
                 -Style "for-the-badge"
 ```
 
-## Use Cases
+## **Use Cases**
 
 ### CI/CD Pipeline Status
 ```powershell
@@ -433,7 +433,7 @@ New-ShieldBadge -Platform powershell -Project "MyModule"
 New-ShieldBadge -Platform docker -Namespace "user/image"
 ```
 
-## Output Formats
+## **Output Formats**
 
 ### Markdown (default)
 ```powershell
@@ -453,7 +453,7 @@ New-CustomBadge -Label "test" -Message "example" -OutputFormat html
 # Output: <img src='https://img.shields.io/badge/test-example-blue' alt='test' />
 ```
 
-## Contributing
+## **Contributing**
 
 Contributions are welcome! Please fork the repository and submit a **Merge Request** (MR) targeting the `develop` branch.
 
@@ -504,12 +504,12 @@ Contributions are welcome! Please fork the repository and submit a **Merge Reque
 🔹 [**@Shield.io**](https://shields.io/) - Shields.io documenation and examples \
 🔹 [**@Simple Icons**](https://simpleicons.org/) - Simple icons used with Shields.io
 
-## License
+## **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-## Support
+## **Support**
 
 - 📝 [Documentation](https://gitlab.com/phellams/psshields/-/wikis/home)
 - 🐛 [Issue Tracker](https://gitlab.com/phellams/psshields/-/issues)
