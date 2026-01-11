@@ -1,3 +1,7 @@
+using module .\miniforge.psm1
+using module ..\cmdlets\Get-PlatformConfig.psm1
+using module .\argumentcompleters.psm1
+
 function New-ShieldBadge {
     <#
     .SYNOPSIS
@@ -107,246 +111,6 @@ function New-ShieldBadge {
     )
     
     $platformConfig = Get-PlatformConfig
-
-    # Platform-specific badge configurations
-    # $platformConfig = @{
-    #     github = @{
-    #         baseUrl = 'https://img.shields.io/github'
-    #         badges = @{
-    #             stars = '/stars/{namespace}'
-    #             forks = '/forks/{namespace}'
-    #             issues = '/issues/{namespace}'
-    #             license = '/license/{namespace}'
-    #             release = '/v/release/{namespace}'
-    #             workflow = '/actions/workflow/status/{namespace}/{workflow}'
-    #         }
-    #         defaultLogo = 'github'
-    #     }
-    #     gitlab = @{
-    #         baseUrl = 'https://img.shields.io/gitlab'
-    #         badges = @{
-    #             stars = '/stars/{namespace}'
-    #             forks = '/forks/{namespace}'
-    #             issues = '/issues/open/{namespace}'
-    #             license = '/license/{namespace}'
-    #             pipeline = '/pipeline-status/{namespace}'
-    #             coverage = '/pipeline-coverage/{namespace}'
-    #         }
-    #         defaultLogo = 'gitlab'
-    #     }
-    #     codecov = @{
-    #         baseUrl = 'https://img.shields.io/codecov/c'
-    #         badges = @{
-    #             coverage = '/github/{namespace}'
-    #             gitlab = '/gitlab/{namespace}'
-    #         }
-    #         defaultLogo = 'codecov'
-    #     }
-    #     coveralls = @{
-    #         baseUrl = 'https://img.shields.io/coveralls'
-    #         badges = @{
-    #             coverage = '/github/{namespace}'
-    #             gitlab = '/gitlab/{namespace}'
-    #         }
-    #         defaultLogo = 'coveralls'
-    #     }
-    #     docker = @{
-    #         baseUrl = 'https://img.shields.io/docker'
-    #         badges = @{
-    #             pulls = '/pulls/{namespace}'
-    #             stars = '/stars/{namespace}'
-    #             size = '/image-size/{namespace}'
-    #             version = '/v/{namespace}'
-    #         }
-    #         defaultLogo = 'docker'
-    #     }
-    #     npm = @{
-    #         baseUrl = 'https://img.shields.io'
-    #         badges = @{
-    #             version = '/npm/v/{package}'
-    #             downloads = '/npm/dt/{package}'
-    #             license = '/npm/l/{package}'
-    #             sizeMin = '/bundlephobia/min/{package}'
-    #             sizeZipped = '/bundlephobia/minzip/{package}'
-    #         }
-    #         defaultLogo = 'npm'
-    #     }
-    #     powershell = @{
-    #         baseUrl = 'https://img.shields.io/powershellgallery'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #             platform = '/p/{package}'
-    #         }
-    #         defaultLogo = 'powershell'
-    #     }
-    #     choco = @{
-    #         baseUrl = 'https://img.shields.io/chocolatey'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #         }
-    #         defaultLogo = 'chocolatey'
-    #     }
-    #     dotnet = @{
-    #         baseUrl = 'https://img.shields.io/nuget'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #         }
-    #         defaultLogo = 'nuget'
-    #     }
-    #     packagist = @{
-    #         baseUrl = 'https://img.shields.io/packagist'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #             license = '/l/{package}'
-    #             php = '/php-v/{package}'
-    #         }
-    #         defaultLogo = 'packagist'
-    #     }
-    #     composer = @{
-    #         baseUrl = 'https://img.shields.io/packagist'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #             license = '/l/{package}'
-    #         }
-    #         defaultLogo = 'composer'
-    #     }
-    #     pypi = @{
-    #         baseUrl = 'https://img.shields.io/pypi'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dm/{package}'
-    #             license = '/l/{package}'
-    #             python = '/pyversions/{package}'
-    #             status = '/status/{package}'
-    #         }
-    #         defaultLogo = 'pypi'
-    #     }
-    #     rubygems = @{
-    #         baseUrl = 'https://img.shields.io/gem'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #         }
-    #         defaultLogo = 'rubygems'
-    #     }
-    #     crates = @{
-    #         baseUrl = 'https://img.shields.io/crates'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/d/{package}'
-    #             license = '/l/{package}'
-    #         }
-    #         defaultLogo = 'rust'
-    #     }
-    #     pub = @{
-    #         baseUrl = 'https://img.shields.io/pub'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             likes = '/likes/{package}'
-    #             points = '/points/{package}'
-    #         }
-    #         defaultLogo = 'dart'
-    #     }
-    #     hex = @{
-    #         baseUrl = 'https://img.shields.io/hexpm'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/dt/{package}'
-    #             license = '/l/{package}'
-    #         }
-    #         defaultLogo = 'elixir'
-    #     }
-    #     cpan = @{
-    #         baseUrl = 'https://img.shields.io/cpan'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #         }
-    #         defaultLogo = 'perl'
-    #     }
-    #     maven = @{
-    #         baseUrl = 'https://img.shields.io/maven-central'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #         }
-    #         defaultLogo = 'apachemaven'
-    #     }
-    #     gradle = @{
-    #         baseUrl = 'https://img.shields.io/maven-central'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #         }
-    #         defaultLogo = 'gradle'
-    #     }
-    #     cargo = @{
-    #         baseUrl = 'https://img.shields.io/crates'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             downloads = '/d/{package}'
-    #         }
-    #         defaultLogo = 'rust'
-    #     }
-    #     go = @{
-    #         baseUrl = 'https://img.shields.io/github'
-    #         badges = @{
-    #             version = '/go-mod/go-version/{namespace}'
-    #         }
-    #         defaultLogo = 'go'
-    #     }
-    #     conda = @{
-    #         baseUrl = 'https://img.shields.io/conda'
-    #         badges = @{
-    #             version = '/v/{namespace}/{package}'
-    #             downloads = '/dn/{namespace}/{package}'
-    #             platform = '/pn/{namespace}/{package}'
-    #         }
-    #         defaultLogo = 'anaconda'
-    #     }
-    #     homebrew = @{
-    #         baseUrl = 'https://img.shields.io/homebrew'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #             installs = '/installs/dm/{package}'
-    #         }
-    #         defaultLogo = 'homebrew'
-    #     }
-    #     aur = @{
-    #         baseUrl = 'https://img.shields.io/aur'
-    #         badges = @{
-    #             version = '/version/{package}'
-    #             votes = '/votes/{package}'
-    #         }
-    #         defaultLogo = 'archlinux'
-    #     }
-    #     snap = @{
-    #         baseUrl = 'https://img.shields.io/snapcraft'
-    #         badges = @{
-    #             version = '/v/{package}'
-    #         }
-    #         defaultLogo = 'snapcraft'
-    #     }
-    #     jsdelivr   = @{
-    #         baseUrl = 'https://img.shields.io/jsdelivr'
-    #         badges = @{
-    #             hitsperday   = '/npm/hd/{package}'
-    #             hitsperweek  = '/npm/hw/{package}'
-    #             hitspermonth = '/npm/hm/{package}'
-    #             hitsperyear  = '/npm/hy/{package}'
-    #         }
-    #         defaultLogo = 'jsdelivr'
-    #     }
-    #     jsr = @{
-    #         baseUrl = 'https://img.shields.io/jsr'
-    #         badges = @{
-    #             version = '/v/%40{namespace}'
-    #         }
-    #         defaultLogo = 'jsr'
-    #     }
-    # }
     
     # Get platform configuration
     $config = $platformConfig[$Platform]
@@ -439,21 +203,21 @@ function New-ShieldBadge {
     
     if ($LabelColor) {
         # Convert color name to hex if it's a named color
-        $colorObj = $script:color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LabelColor } | Select-Object -First 1
+        $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LabelColor } | Select-Object -First 1
         $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $LabelColor }
         $params += "labelColor=$colorValue"
     }
     
     if ($MessageColor) {
         # Convert color name to hex if it's a named color
-        $colorObj = $script:color_pallete.colorGroups.colors | Where-Object { $_.name -eq $MessageColor } | Select-Object -First 1
+        $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $MessageColor } | Select-Object -First 1
         $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $MessageColor }
         $params += "color=$colorValue"
     }
     
     if ($LogoColor) {
         # Convert color name to hex if it's a named color
-        $colorObj = $script:color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LogoColor } | Select-Object -First 1
+        $colorObj = $global:__psshields.color_pallete.colorGroups.colors | Where-Object { $_.name -eq $LogoColor } | Select-Object -First 1
         $colorValue = if ($colorObj) { $colorObj.hex -replace '^#', '' } else { $LogoColor }
         $params += "logoColor=$colorValue"
     }
@@ -461,42 +225,44 @@ function New-ShieldBadge {
     if ($params.Count -gt 0) {
         $badgeUrl += "?" + ($params -join "&")
     }
-    
+
+    # Determine link URL
+    $linkUrl = switch ($Platform) {
+        'github' { "https://github.com/$Namespace" }
+        'gitlab' { "https://gitlab.com/$Namespace" }
+        'docker' { "https://hub.docker.com/r/$Namespace" }
+        'npm' { "https://www.npmjs.com/package/$($Project ?? $Namespace)" }
+        'powershell' { "https://www.powershellgallery.com/packages/$($Project ?? $Namespace)" }
+        'choco' { "https://community.chocolatey.org/packages/$($Project ?? $Namespace)" }
+        'dotnet' { "https://www.nuget.org/packages/$($Project ?? $Namespace)" }
+        'packagist' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
+        'composer' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
+        'pypi' { "https://pypi.org/project/$($Project ?? $Namespace)" }
+        'rubygems' { "https://rubygems.org/gems/$($Project ?? $Namespace)" }
+        'crates' { "https://crates.io/crates/$($Project ?? $Namespace)" }
+        'pub' { "https://pub.dev/packages/$($Project ?? $Namespace)" }
+        'hex' { "https://hex.pm/packages/$($Project ?? $Namespace)" }
+        'cpan' { "https://metacpan.org/pod/$($Project ?? $Namespace)" }
+        'maven' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
+        'gradle' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
+        'cargo' { "https://crates.io/crates/$($Project ?? $Namespace)" }
+        'go' { "https://pkg.go.dev/$Namespace" }
+        'conda' { "https://anaconda.org/$Namespace/$Project" }
+        'homebrew' { "https://formulae.brew.sh/formula/$($Project ?? $Namespace)" }
+        'aur' { "https://aur.archlinux.org/packages/$($Project ?? $Namespace)" }
+        'snap' { "https://snapcraft.io/$($Project ?? $Namespace)" }
+        'jsdelivr' { "https://cdn.jsdelivr.net/package/npm/$($Project ?? $Namespace)" }
+        'jsr' { "https://jsr.io/%40$Namespace/$($Project)" }
+        default { $badgeUrl }
+    }
+
     # Format output
     switch ($OutputFormat) {
         'markdown' {
-            $linkUrl = switch ($Platform) {
-                'github' { "https://github.com/$Namespace" }
-                'gitlab' { "https://gitlab.com/$Namespace" }
-                'docker' { "https://hub.docker.com/r/$Namespace" }
-                'npm' { "https://www.npmjs.com/package/$($Project ?? $Namespace)" }
-                'powershell' { "https://www.powershellgallery.com/packages/$($Project ?? $Namespace)" }
-                'choco' { "https://community.chocolatey.org/packages/$($Project ?? $Namespace)" }
-                'dotnet' { "https://www.nuget.org/packages/$($Project ?? $Namespace)" }
-                'packagist' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
-                'composer' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
-                'pypi' { "https://pypi.org/project/$($Project ?? $Namespace)" }
-                'rubygems' { "https://rubygems.org/gems/$($Project ?? $Namespace)" }
-                'crates' { "https://crates.io/crates/$($Project ?? $Namespace)" }
-                'pub' { "https://pub.dev/packages/$($Project ?? $Namespace)" }
-                'hex' { "https://hex.pm/packages/$($Project ?? $Namespace)" }
-                'cpan' { "https://metacpan.org/pod/$($Project ?? $Namespace)" }
-                'maven' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
-                'gradle' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
-                'cargo' { "https://crates.io/crates/$($Project ?? $Namespace)" }
-                'go' { "https://pkg.go.dev/$Namespace" }
-                'conda' { "https://anaconda.org/$Namespace/$Project" }
-                'homebrew' { "https://formulae.brew.sh/formula/$($Project ?? $Namespace)" }
-                'aur' { "https://aur.archlinux.org/packages/$($Project ?? $Namespace)" }
-                'snap' { "https://snapcraft.io/$($Project ?? $Namespace)" }
-                'jsdelivr' { "https://cdn.jsdelivr.net/package/npm/$($Project ?? $Namespace)" }
-                'jsr' { "https://jsr.io/%40$Namespace/$($Project)" }
-                default { $badgeUrl }
-            }
             return "[![$Platform-$badgeType]($badgeUrl)]($linkUrl)"
         }
         'html' {
-            return "<img src='$badgeUrl' alt='$Platform-$badgeType' />"
+            return "<a href='$linkUrl' target='_blank'><img src='$badgeUrl' alt='$Platform-$badgeType' /></a>"
         }
         default {
             return $badgeUrl
@@ -505,159 +271,159 @@ function New-ShieldBadge {
 }
 
 # NOTE!: Invoke-ShieldsCommander is to replace project bages
-function New-ProjectBadges {
-    <#
-    .SYNOPSIS
-        Generates a complete set of badges for a project
+# function New-ProjectBadges {
+#     <#
+#     .SYNOPSIS
+#         Generates a complete set of badges for a project
     
-    .EXAMPLE
-        New-ProjectBadges -GitHub "username/repo" -NPM "@scope/package"
-    #>
+#     .EXAMPLE
+#         New-ProjectBadges -GitHub "username/repo" -NPM "@scope/package"
+#     #>
     
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory=$false)]
-        [string]$GitHub,
+#     [CmdletBinding()]
+#     param(
+#         [Parameter(Mandatory=$false)]
+#         [string]$GitHub,
         
-        [Parameter(Mandatory=$false)]
-        [string]$GitLab,
+#         [Parameter(Mandatory=$false)]
+#         [string]$GitLab,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Docker,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Docker,
         
-        [Parameter(Mandatory=$false)]
-        [string]$NPM,
+#         [Parameter(Mandatory=$false)]
+#         [string]$NPM,
         
-        [Parameter(Mandatory=$false)]
-        [string]$PowerShell,
+#         [Parameter(Mandatory=$false)]
+#         [string]$PowerShell,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Chocolatey,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Chocolatey,
         
-        [Parameter(Mandatory=$false)]
-        [string]$DotNet,
+#         [Parameter(Mandatory=$false)]
+#         [string]$DotNet,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Packagist,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Packagist,
         
-        [Parameter(Mandatory=$false)]
-        [string]$PyPI,
+#         [Parameter(Mandatory=$false)]
+#         [string]$PyPI,
         
-        [Parameter(Mandatory=$false)]
-        [string]$RubyGems,
+#         [Parameter(Mandatory=$false)]
+#         [string]$RubyGems,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Crates,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Crates,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Pub,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Pub,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Hex,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Hex,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Maven,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Maven,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Go,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Go,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Conda,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Conda,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Homebrew,
+#         [Parameter(Mandatory=$false)]
+#         [string]$Homebrew,
 
-        [Parameter(Mandatory=$false)]
-        [string]$jsdelivr,
+#         [Parameter(Mandatory=$false)]
+#         [string]$jsdelivr,
 
-        [Parameter(Mandatory=$false)]
-        [string]$jsr,
+#         [Parameter(Mandatory=$false)]
+#         [string]$jsr,
         
-        [Parameter(Mandatory=$false)]
-        [string]$Style = 'flat'
-    )
+#         [Parameter(Mandatory=$false)]
+#         [string]$Style = 'flat'
+#     )
     
-    $badges = @()
+#     $badges = @()
     
-    if ($GitHub) {
-        $badges += New-ShieldBadge -Platform github -Namespace $GitHub -Style $Style
-    }
+#     if ($GitHub) {
+#         $badges += New-ShieldBadge -Platform github -Namespace $GitHub -Style $Style
+#     }
     
-    if ($GitLab) {
-        $badges += New-ShieldBadge -Platform gitlab -Namespace $GitLab -Style $Style
-    }
+#     if ($GitLab) {
+#         $badges += New-ShieldBadge -Platform gitlab -Namespace $GitLab -Style $Style
+#     }
     
-    if ($Docker) {
-        $badges += New-ShieldBadge -Platform docker -Namespace $Docker -Style $Style
-    }
+#     if ($Docker) {
+#         $badges += New-ShieldBadge -Platform docker -Namespace $Docker -Style $Style
+#     }
     
-    if ($NPM) {
-        $badges += New-ShieldBadge -Platform npm -Project $NPM -Style $Style
-    }
+#     if ($NPM) {
+#         $badges += New-ShieldBadge -Platform npm -Project $NPM -Style $Style
+#     }
     
-    if ($PowerShell) {
-        $badges += New-ShieldBadge -Platform powershell -Project $PowerShell -Style $Style
-    }
+#     if ($PowerShell) {
+#         $badges += New-ShieldBadge -Platform powershell -Project $PowerShell -Style $Style
+#     }
     
-    if ($Chocolatey) {
-        $badges += New-ShieldBadge -Platform choco -Project $Chocolatey -Style $Style
-    }
+#     if ($Chocolatey) {
+#         $badges += New-ShieldBadge -Platform choco -Project $Chocolatey -Style $Style
+#     }
     
-    if ($DotNet) {
-        $badges += New-ShieldBadge -Platform dotnet -Project $DotNet -Style $Style
-    }
+#     if ($DotNet) {
+#         $badges += New-ShieldBadge -Platform dotnet -Project $DotNet -Style $Style
+#     }
     
-    if ($Packagist) {
-        $badges += New-ShieldBadge -Platform packagist -Project $Packagist -Style $Style
-    }
+#     if ($Packagist) {
+#         $badges += New-ShieldBadge -Platform packagist -Project $Packagist -Style $Style
+#     }
     
-    if ($PyPI) {
-        $badges += New-ShieldBadge -Platform pypi -Project $PyPI -Style $Style
-    }
+#     if ($PyPI) {
+#         $badges += New-ShieldBadge -Platform pypi -Project $PyPI -Style $Style
+#     }
     
-    if ($RubyGems) {
-        $badges += New-ShieldBadge -Platform rubygems -Project $RubyGems -Style $Style
-    }
+#     if ($RubyGems) {
+#         $badges += New-ShieldBadge -Platform rubygems -Project $RubyGems -Style $Style
+#     }
     
-    if ($Crates) {
-        $badges += New-ShieldBadge -Platform crates -Project $Crates -Style $Style
-    }
+#     if ($Crates) {
+#         $badges += New-ShieldBadge -Platform crates -Project $Crates -Style $Style
+#     }
     
-    if ($Pub) {
-        $badges += New-ShieldBadge -Platform pub -Project $Pub -Style $Style
-    }
+#     if ($Pub) {
+#         $badges += New-ShieldBadge -Platform pub -Project $Pub -Style $Style
+#     }
     
-    if ($Hex) {
-        $badges += New-ShieldBadge -Platform hex -Project $Hex -Style $Style
-    }
+#     if ($Hex) {
+#         $badges += New-ShieldBadge -Platform hex -Project $Hex -Style $Style
+#     }
     
-    if ($Maven) {
-        $badges += New-ShieldBadge -Platform maven -Project $Maven -Style $Style
-    }
+#     if ($Maven) {
+#         $badges += New-ShieldBadge -Platform maven -Project $Maven -Style $Style
+#     }
     
-    if ($Go) {
-        $badges += New-ShieldBadge -Platform go -Namespace $Go -Style $Style
-    }
+#     if ($Go) {
+#         $badges += New-ShieldBadge -Platform go -Namespace $Go -Style $Style
+#     }
     
-    if ($Conda) {
-        # Conda expects namespace/package format
-        $badges += New-ShieldBadge -Platform conda -Namespace $Conda -Style $Style
-    }
+#     if ($Conda) {
+#         # Conda expects namespace/package format
+#         $badges += New-ShieldBadge -Platform conda -Namespace $Conda -Style $Style
+#     }
     
-    if ($Homebrew) {
-        $badges += New-ShieldBadge -Platform homebrew -Project $Homebrew -Style $Style
-    }
+#     if ($Homebrew) {
+#         $badges += New-ShieldBadge -Platform homebrew -Project $Homebrew -Style $Style
+#     }
 
-    if ($jsdelivr) {
-        $badges += New-ShieldBadge -Platform jsdelivr -Project $jsdelivr -Style $Style
-    }
+#     if ($jsdelivr) {
+#         $badges += New-ShieldBadge -Platform jsdelivr -Project $jsdelivr -Style $Style
+#     }
 
-    if ($jsr) {
-        $badges += New-ShieldBadge -Platform jsr -Namespace $jsr -Style $Style
-    }
+#     if ($jsr) {
+#         $badges += New-ShieldBadge -Platform jsr -Namespace $jsr -Style $Style
+#     }
     
-    return $badges -join "`n"
-}
+#     return $badges -join "`n"
+# }
 
 function New-CustomBadge {
     <#
@@ -809,217 +575,217 @@ function New-CustomBadge {
     }
 }
 
-function New-StandardBadge {
-    <#
-    .SYNOPSIS
-        Creates common standard badges with preset configurations
+# function New-StandardBadge {
+#     <#
+#     .SYNOPSIS
+#         Creates common standard badges with preset configurations
     
-    .PARAMETER Type
-        The type of standard badge (status, license, version, build, coverage, downloads, etc.)
+#     .PARAMETER Type
+#         The type of standard badge (status, license, version, build, coverage, downloads, etc.)
     
-    .PARAMETER Value
-        The value/message for the badge
+#     .PARAMETER Value
+#         The value/message for the badge
     
-    .PARAMETER Style
-        Badge style: flat, flat-square, plastic, for-the-badge, social (default: flat)
+#     .PARAMETER Style
+#         Badge style: flat, flat-square, plastic, for-the-badge, social (default: flat)
     
-    .PARAMETER OutputFormat
-        Output format: markdown, url, html (default: markdown)
+#     .PARAMETER OutputFormat
+#         Output format: markdown, url, html (default: markdown)
     
-    .PARAMETER Link
-        Optional URL to link the badge to
+#     .PARAMETER Link
+#         Optional URL to link the badge to
     
-    .EXAMPLE
-        New-StandardBadge -Type "status" -Value "stable"
+#     .EXAMPLE
+#         New-StandardBadge -Type "status" -Value "stable"
         
-    .EXAMPLE
-        New-StandardBadge -Type "license" -Value "MIT" -Link "https://opensource.org/licenses/MIT"
+#     .EXAMPLE
+#         New-StandardBadge -Type "license" -Value "MIT" -Link "https://opensource.org/licenses/MIT"
         
-    .EXAMPLE
-        New-StandardBadge -Type "build" -Value "passing" -Style "flat-square"
-    #>
+#     .EXAMPLE
+#         New-StandardBadge -Type "build" -Value "passing" -Style "flat-square"
+#     #>
     
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory=$true)]
-        [ValidateSet('status', 'license', 'version', 'build', 'coverage', 'downloads', 
-                     'maintained', 'dependencies', 'security', 'quality', 'rating',
-                     'docs', 'tests', 'release', 'issues', 'prs', 'contributors', 'size', 
-                     'platform','workflow', 'gitlab', 'installs', 'github', 'codecov', 
-                     'coveralls', 'docker', 'npm', 'powershell', 'choco', 'dotnet',
-                     'packagist', 'composer', 'pypi', 'rubygems', 'crates', 'pub', 'hex', 
-                     'cpan', 'maven', 'gradle', 'cargo', 'go', 'conda', 'hoimmebrew', 
-                     'aur', 'snap', 'jsdelivr', 'jsr'
-                     )]
-        [string]$Type,
+#     [CmdletBinding()]
+#     param(
+#         [Parameter(Mandatory=$true)]
+#         [ValidateSet('status', 'license', 'version', 'build', 'coverage', 'downloads', 
+#                      'maintained', 'dependencies', 'security', 'quality', 'rating',
+#                      'docs', 'tests', 'release', 'issues', 'prs', 'contributors', 'size', 
+#                      'platform','workflow', 'gitlab', 'installs', 'github', 'codecov', 
+#                      'coveralls', 'docker', 'npm', 'powershell', 'choco', 'dotnet',
+#                      'packagist', 'composer', 'pypi', 'rubygems', 'crates', 'pub', 'hex', 
+#                      'cpan', 'maven', 'gradle', 'cargo', 'go', 'conda', 'hoimmebrew', 
+#                      'aur', 'snap', 'jsdelivr', 'jsr'
+#                      )]
+#         [string]$Type,
         
-        [Parameter(Mandatory=$true)]
-        [string]$Value,
+#         [Parameter(Mandatory=$true)]
+#         [string]$Value,
         
-        [Parameter(Mandatory=$false)]
-        [ValidateSet('flat', 'flat-square', 'plastic', 'for-the-badge', 'social')]
-        [string]$Style = 'flat',
+#         [Parameter(Mandatory=$false)]
+#         [ValidateSet('flat', 'flat-square', 'plastic', 'for-the-badge', 'social')]
+#         [string]$Style = 'flat',
         
-        [Parameter(Mandatory=$false)]
-        [ValidateSet('markdown', 'url', 'html')]
-        [string]$OutputFormat = 'markdown',
+#         [Parameter(Mandatory=$false)]
+#         [ValidateSet('markdown', 'url', 'html')]
+#         [string]$OutputFormat = 'markdown',
         
-        [Parameter(Mandatory=$false)]
-        [string]$Link
-    )
+#         [Parameter(Mandatory=$false)]
+#         [string]$Link
+#     )
     
-    # Define standard badge configurations
-    $badgeConfigs = @{
-        status = @{
-            label = 'status'
-            colorMap = @{
-                stable = 'green'
-                beta = 'yellow'
-                alpha = 'orange'
-                experimental = 'red'
-                deprecated = 'lightgrey'
-            }
-        }
-        license = @{
-            label = 'license'
-            colorMap = @{
-                MIT = 'blue'
-                Apache = 'blue'
-                GPL = 'blue'
-                BSD = 'blue'
-                ISC = 'blue'
-            }
-            defaultColor = 'blue'
-        }
-        version = @{
-            label = 'version'
-            defaultColor = 'blue'
-        }
-        build = @{
-            label = 'build'
-            colorMap = @{
-                passing = 'brightgreen'
-                failing = 'red'
-                pending = 'yellow'
-                unknown = 'lightgrey'
-            }
-        }
-        coverage = @{
-            label = 'coverage'
-            colorMap = @{
-                '100%' = 'brightgreen'
-                '90%' = 'green'
-                '80%' = 'yellowgreen'
-                '70%' = 'yellow'
-                '60%' = 'orange'
-            }
-            defaultColor = 'red'
-        }
-        downloads = @{
-            label = 'downloads'
-            defaultColor = 'blue'
-        }
-        maintained = @{
-            label = 'maintained'
-            colorMap = @{
-                yes = 'brightgreen'
-                no = 'red'
-            }
-        }
-        dependencies = @{
-            label = 'dependencies'
-            colorMap = @{
-                'up to date' = 'brightgreen'
-                outdated = 'orange'
-                vulnerable = 'red'
-            }
-        }
-        security = @{
-            label = 'security'
-            colorMap = @{
-                verified = 'brightgreen'
-                unverified = 'yellow'
-                vulnerable = 'red'
-            }
-        }
-        quality = @{
-            label = 'code quality'
-            colorMap = @{
-                A = 'brightgreen'
-                B = 'green'
-                C = 'yellow'
-                D = 'orange'
-                F = 'red'
-            }
-        }
-        rating = @{
-            label = 'rating'
-            defaultColor = 'blue'
-        }
-        docs = @{
-            label = 'docs'
-            colorMap = @{
-                passing = 'brightgreen'
-                failing = 'red'
-            }
-        }
-        tests = @{
-            label = 'tests'
-            colorMap = @{
-                passing = 'brightgreen'
-                failing = 'red'
-            }
-        }
-        release = @{
-            label = 'release'
-            defaultColor = 'blue'
-        }
-        issues = @{
-            label = 'issues'
-            defaultColor = 'yellow'
-        }
-        prs = @{
-            label = 'pull requests'
-            defaultColor = 'blue'
-        }
-        contributors = @{
-            label = 'contributors'
-            defaultColor = 'blue'
-        }
-    }
+#     # Define standard badge configurations
+#     $badgeConfigs = @{
+#         status = @{
+#             label = 'status'
+#             colorMap = @{
+#                 stable = 'green'
+#                 beta = 'yellow'
+#                 alpha = 'orange'
+#                 experimental = 'red'
+#                 deprecated = 'lightgrey'
+#             }
+#         }
+#         license = @{
+#             label = 'license'
+#             colorMap = @{
+#                 MIT = 'blue'
+#                 Apache = 'blue'
+#                 GPL = 'blue'
+#                 BSD = 'blue'
+#                 ISC = 'blue'
+#             }
+#             defaultColor = 'blue'
+#         }
+#         version = @{
+#             label = 'version'
+#             defaultColor = 'blue'
+#         }
+#         build = @{
+#             label = 'build'
+#             colorMap = @{
+#                 passing = 'brightgreen'
+#                 failing = 'red'
+#                 pending = 'yellow'
+#                 unknown = 'lightgrey'
+#             }
+#         }
+#         coverage = @{
+#             label = 'coverage'
+#             colorMap = @{
+#                 '100%' = 'brightgreen'
+#                 '90%' = 'green'
+#                 '80%' = 'yellowgreen'
+#                 '70%' = 'yellow'
+#                 '60%' = 'orange'
+#             }
+#             defaultColor = 'red'
+#         }
+#         downloads = @{
+#             label = 'downloads'
+#             defaultColor = 'blue'
+#         }
+#         maintained = @{
+#             label = 'maintained'
+#             colorMap = @{
+#                 yes = 'brightgreen'
+#                 no = 'red'
+#             }
+#         }
+#         dependencies = @{
+#             label = 'dependencies'
+#             colorMap = @{
+#                 'up to date' = 'brightgreen'
+#                 outdated = 'orange'
+#                 vulnerable = 'red'
+#             }
+#         }
+#         security = @{
+#             label = 'security'
+#             colorMap = @{
+#                 verified = 'brightgreen'
+#                 unverified = 'yellow'
+#                 vulnerable = 'red'
+#             }
+#         }
+#         quality = @{
+#             label = 'code quality'
+#             colorMap = @{
+#                 A = 'brightgreen'
+#                 B = 'green'
+#                 C = 'yellow'
+#                 D = 'orange'
+#                 F = 'red'
+#             }
+#         }
+#         rating = @{
+#             label = 'rating'
+#             defaultColor = 'blue'
+#         }
+#         docs = @{
+#             label = 'docs'
+#             colorMap = @{
+#                 passing = 'brightgreen'
+#                 failing = 'red'
+#             }
+#         }
+#         tests = @{
+#             label = 'tests'
+#             colorMap = @{
+#                 passing = 'brightgreen'
+#                 failing = 'red'
+#             }
+#         }
+#         release = @{
+#             label = 'release'
+#             defaultColor = 'blue'
+#         }
+#         issues = @{
+#             label = 'issues'
+#             defaultColor = 'yellow'
+#         }
+#         prs = @{
+#             label = 'pull requests'
+#             defaultColor = 'blue'
+#         }
+#         contributors = @{
+#             label = 'contributors'
+#             defaultColor = 'blue'
+#         }
+#     }
     
-    $config = $badgeConfigs[$Type]
-    $label = $config.label
+#     $config = $badgeConfigs[$Type]
+#     $label = $config.label
     
-    # Determine color based on value
-    $color = $config.defaultColor
-    if ($config.colorMap -and $config.colorMap.ContainsKey($Value)) {
-        $color = $config.colorMap[$Value]
-    }
+#     # Determine color based on value
+#     $color = $config.defaultColor
+#     if ($config.colorMap -and $config.colorMap.ContainsKey($Value)) {
+#         $color = $config.colorMap[$Value]
+#     }
     
-    # If it's a percentage, try to match the number
-    if ($Type -eq 'coverage' -and $Value -match '(\d+)%') {
-        $percent = [int]$matches[1]
-        if ($percent -ge 90) { $color = 'brightgreen' }
-        elseif ($percent -ge 80) { $color = 'green' }
-        elseif ($percent -ge 70) { $color = 'yellowgreen' }
-        elseif ($percent -ge 60) { $color = 'yellow' }
-        elseif ($percent -ge 50) { $color = 'orange' }
-        else { $color = 'red' }
-    }
+#     # If it's a percentage, try to match the number
+#     if ($Type -eq 'coverage' -and $Value -match '(\d+)%') {
+#         $percent = [int]$matches[1]
+#         if ($percent -ge 90) { $color = 'brightgreen' }
+#         elseif ($percent -ge 80) { $color = 'green' }
+#         elseif ($percent -ge 70) { $color = 'yellowgreen' }
+#         elseif ($percent -ge 60) { $color = 'yellow' }
+#         elseif ($percent -ge 50) { $color = 'orange' }
+#         else { $color = 'red' }
+#     }
     
-    # Create the badge
-    $params = @{
-        Label = $label
-        Message = $Value
-        MessageColor = $color
-        Style = $Style
-        OutputFormat = $OutputFormat
-    }
+#     # Create the badge
+#     $params = @{
+#         Label = $label
+#         Message = $Value
+#         MessageColor = $color
+#         Style = $Style
+#         OutputFormat = $OutputFormat
+#     }
     
-    if ($Link) {
-        $params.Link = $Link
-    }
+#     if ($Link) {
+#         $params.Link = $Link
+#     }
     
-    return New-CustomBadge @params
-}
+#     return New-CustomBadge @params
+# }

@@ -1,0 +1,31 @@
+{
+    "modulename": "psshields",
+    "releasetype": "public",
+    "gituser": "sgkens",
+    "gitgroup": "phellams",
+    "gitlabid": "",
+    "gitlabid_public": "76116883",
+    "license": "MIT",
+    "iconurl": "https://raw.githubusercontent.com/phellams/psshields/main/logos/psshields/dist/png/psshields-128x128.png",
+    "phwriter": true,
+    "phwriter_source": "https://gitlab.com/phellams/psshields#function-reference",
+    "pester_test_files": [
+        ".\\cmdlets\\*.psm1",
+        ".\\*.psm1"
+    ],
+    "modulefiles": [
+        "psshields.psm1",
+        "psshields.psd1",
+        "LICENSE",
+        "icon.png",
+        "README.md",
+        "readme.txt"
+    ],
+    "modulefolders": [
+        "cmdlets",
+        "libs"
+    ],
+    "moduleexclude": [
+        "commit-helper.ps1"
+    ]
+}
