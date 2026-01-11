@@ -225,38 +225,40 @@ function New-ShieldBadge {
     if ($params.Count -gt 0) {
         $badgeUrl += "?" + ($params -join "&")
     }
-    
+
+    # Determine link URL
+    $linkUrl = switch ($Platform) {
+        'github' { "https://github.com/$Namespace" }
+        'gitlab' { "https://gitlab.com/$Namespace" }
+        'docker' { "https://hub.docker.com/r/$Namespace" }
+        'npm' { "https://www.npmjs.com/package/$($Project ?? $Namespace)" }
+        'powershell' { "https://www.powershellgallery.com/packages/$($Project ?? $Namespace)" }
+        'choco' { "https://community.chocolatey.org/packages/$($Project ?? $Namespace)" }
+        'dotnet' { "https://www.nuget.org/packages/$($Project ?? $Namespace)" }
+        'packagist' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
+        'composer' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
+        'pypi' { "https://pypi.org/project/$($Project ?? $Namespace)" }
+        'rubygems' { "https://rubygems.org/gems/$($Project ?? $Namespace)" }
+        'crates' { "https://crates.io/crates/$($Project ?? $Namespace)" }
+        'pub' { "https://pub.dev/packages/$($Project ?? $Namespace)" }
+        'hex' { "https://hex.pm/packages/$($Project ?? $Namespace)" }
+        'cpan' { "https://metacpan.org/pod/$($Project ?? $Namespace)" }
+        'maven' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
+        'gradle' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
+        'cargo' { "https://crates.io/crates/$($Project ?? $Namespace)" }
+        'go' { "https://pkg.go.dev/$Namespace" }
+        'conda' { "https://anaconda.org/$Namespace/$Project" }
+        'homebrew' { "https://formulae.brew.sh/formula/$($Project ?? $Namespace)" }
+        'aur' { "https://aur.archlinux.org/packages/$($Project ?? $Namespace)" }
+        'snap' { "https://snapcraft.io/$($Project ?? $Namespace)" }
+        'jsdelivr' { "https://cdn.jsdelivr.net/package/npm/$($Project ?? $Namespace)" }
+        'jsr' { "https://jsr.io/%40$Namespace/$($Project)" }
+        default { $badgeUrl }
+    }
+
     # Format output
     switch ($OutputFormat) {
         'markdown' {
-            $linkUrl = switch ($Platform) {
-                'github' { "https://github.com/$Namespace" }
-                'gitlab' { "https://gitlab.com/$Namespace" }
-                'docker' { "https://hub.docker.com/r/$Namespace" }
-                'npm' { "https://www.npmjs.com/package/$($Project ?? $Namespace)" }
-                'powershell' { "https://www.powershellgallery.com/packages/$($Project ?? $Namespace)" }
-                'choco' { "https://community.chocolatey.org/packages/$($Project ?? $Namespace)" }
-                'dotnet' { "https://www.nuget.org/packages/$($Project ?? $Namespace)" }
-                'packagist' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
-                'composer' { "https://packagist.org/packages/$($Project ?? $Namespace)" }
-                'pypi' { "https://pypi.org/project/$($Project ?? $Namespace)" }
-                'rubygems' { "https://rubygems.org/gems/$($Project ?? $Namespace)" }
-                'crates' { "https://crates.io/crates/$($Project ?? $Namespace)" }
-                'pub' { "https://pub.dev/packages/$($Project ?? $Namespace)" }
-                'hex' { "https://hex.pm/packages/$($Project ?? $Namespace)" }
-                'cpan' { "https://metacpan.org/pod/$($Project ?? $Namespace)" }
-                'maven' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
-                'gradle' { "https://search.maven.org/artifact/$($Project ?? $Namespace)" }
-                'cargo' { "https://crates.io/crates/$($Project ?? $Namespace)" }
-                'go' { "https://pkg.go.dev/$Namespace" }
-                'conda' { "https://anaconda.org/$Namespace/$Project" }
-                'homebrew' { "https://formulae.brew.sh/formula/$($Project ?? $Namespace)" }
-                'aur' { "https://aur.archlinux.org/packages/$($Project ?? $Namespace)" }
-                'snap' { "https://snapcraft.io/$($Project ?? $Namespace)" }
-                'jsdelivr' { "https://cdn.jsdelivr.net/package/npm/$($Project ?? $Namespace)" }
-                'jsr' { "https://jsr.io/%40$Namespace/$($Project)" }
-                default { $badgeUrl }
-            }
             return "[![$Platform-$badgeType]($badgeUrl)]($linkUrl)"
         }
         'html' {
