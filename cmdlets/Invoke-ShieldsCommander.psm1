@@ -3,7 +3,7 @@ using module ..\libs\New-ColorConsole.psm1
 using module ..\libs\Write-AsciiTable.psm1
 using module .\Get-DefinedColorSets.psm1
 using module ..\libs\argumentcompleters.psm1
-using module ..\libs\miniforge.psm1
+using module ..\libs\auspex.psm1
 
 function Invoke-ShieldsCommander {
     <#
@@ -115,16 +115,102 @@ function Invoke-ShieldsCommander {
         
         [parameter(Mandatory=$false)]
         [validateSet(
-            'cyberpunk', 'neon-nights', 'azure-tech', 'matrix-console', 'synthwave', 'royal-tech',
-            'professional-blue', 'slate-clean', 'corporate-dark', 'executive',  'teal-accent', 'trust-blue',
-            'magma', 'sunset-glow', 'critical-alert', 'amber-lamps', 'cherry-blossom', 'midas-gold',
-            'forest-guard', 'camouflage', 'ocean-foam', 'earth-tone', 'glacier-ice', 'toxic-waste',
-            'monolith', 'noir', 'brushed-metal', 'carbon-maroon', 'stealth-bomber', 'typewriter',
-            'old-paper', 'military-issue', 'dusty-rose', 'leather-bound', 'faded-denim', 'brick-house',
-            'construction', 'bio-hazard', 'safety-cone', 'high-contrast', 'glitch-pop', 'medical-alert',
-            'nebula-core', 'void-walker', 'alien-tech', 'solar-flare', 'moon-base', 'hyper-drive',
-            'cotton-candy', 'baby-blue', 'minty-fresh', 'vanilla-cream', 'lilac-dream', 'peach-fuzz',
-            'emerald-city', 'ruby-red', 'sapphire-night', 'amethyst-glow', 'diamond-cut' , 'topaz-fire'
+            "cyberpunk",
+            "neon-nights",
+            "azure-tech",
+            "matrix-console",
+            "synthwave",
+            "royal-tech",
+            "professional-blue",
+            "slate-clean",
+            "corporate-dark",
+            "executive",
+            "teal-accent",
+            "trust-blue",
+            "magma",
+            "sunset-glow",
+            "critical-alert",
+            "amber-lamps",
+            "cherry-blossom",
+            "midas-gold",
+            "forest-guard",
+            "camouflage",
+            "ocean-foam",
+            "earth-tone",
+            "glacier-ice",
+            "toxic-waste",
+            "monolith",
+            "noir",
+            "brushed-metal",
+            "carbon-maroon",
+            "stealth-bomber",
+            "typewriter",
+            "old-paper",
+            "military-issue",
+            "dusty-rose",
+            "leather-bound",
+            "faded-denim",
+            "brick-house",
+            "construction",
+            "bio-hazard",
+            "safety-cone",
+            "high-contrast",
+            "glitch-pop",
+            "medical-alert",
+            "nebula-core",
+            "void-walker",
+            "alien-tech",
+            "solar-flare",
+            "moon-base",
+            "hyper-drive",
+            "cotton-candy",
+            "baby-blue",
+            "mint-fresh",
+            "vanilla-cream",
+            "lilac-dream",
+            "peach-fuzz",
+            "emerald-city",
+            "ruby-red",
+            "sapphire-night",
+            "amethyst-glow",
+            "diamond-cut",
+            "topaz-fire",
+            "mainframe",
+            "deep-web",
+            "blood-code",
+            "terminal-green",
+            "lux-dark",
+            "arctic-base",
+            "deep-glacier",
+            "snow-storm",
+            "permafrost",
+            "dust-bowl",
+            "safari-tech",
+            "canyon-rock",
+            "desert-sun",
+            "grape-soda",
+            "electric-lime",
+            "bubblegum",
+            "blue-razz",
+            "hazard-zone",
+            "caution-tape",
+            "factory-floor",
+            "blue-collar",
+            "obsidian",
+            "phantom",
+            "deep-sea-dark",
+            "night-shade",
+            "blood-moon",
+            "matrix-deep",
+            "mono-blue",
+            "mono-green",
+            "mono-orange",
+            "mono-red",
+            "mono-purple",
+            "mono-grey",
+            "ghost-writer",
+            "under-the-radar",
+            "industrial-stealth"
         )]
         [string]$ColorSet,
 
@@ -171,10 +257,14 @@ function Invoke-ShieldsCommander {
         $AsciiTableView_config = $global:__psshields.asciitableview
 
         # --- DEFINE THE COLORSET ARRAY HERE ----
+        # define $nulls
+        $color_sets = $null
+        $defined_sets = $null
+        $color_pallete = $null
         # ---------------------------------------
         $color_sets = Get-DefinedColorSets
-
         $color_pallete = Get-ColorPallete
+        $defined_sets = Get-DefinedSets
 
         # Select the color set or use default
         $selected_color_set = $color_sets | Where-Object { $_.ColorSet -eq $colorset }
@@ -345,40 +435,67 @@ function Invoke-ShieldsCommander {
         } else {
             $badges = $null
             switch ($set) {
-                'jsm' { 
-                    $badges = @(
-                        @{ Platform = 'gitlab'; BadgeType = 'license'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'pipeline'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'issues'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'npm'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'jsr'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'jsdelivr'; BadgeType = 'hitsperweek'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'npm'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }, # for umpkg rename link and left shield should the same
-                        @{ Platform = 'npm'; BadgeType = 'sizeMin'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }, # for umpkg rename link and left shield should the same            
-                        @{ Platform = 'npm'; BadgeType = 'sizeZipped'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat } # for umpkg rename link and left shield should the same            
-                    )
+                'jsm' {
+                    foreach ($badge in (auspex $defined_sets read "jsm.badges")) {
+
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].project" $reponame
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].labelcolor" $LabelColor 
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].messagecolor" $MessageColor 
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].namespace" $Namespace 
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].style" $style 
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].logocolor" $LogoColor 
+                        auspex $defined_sets create "jsm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].outputformat" $OutputFormat 
+                    }
+                    $badges = $defined_sets.jsm.badges
                 }
                 'psm' {
-                    $badges = @(
-                        @{ Platform = 'gitlab'; BadgeType = 'license'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'pipeline'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'issues'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'gitlab'; BadgeType = 'contributors'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'powershell'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'choco'; BadgeType = 'version'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat },
-                        @{ Platform = 'codecov'; BadgeType = 'coverage'; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }
-                    )
+                    foreach ($badge in (auspex $defined_sets read "psm.badges")) {
+                        $platform = auspex $defined_sets read "psm.badges[badgetype=$badge_type].platform"
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].project" $reponame
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].labelcolor" $LabelColor 
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].messagecolor" $MessageColor 
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].namespace" $Namespace 
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].style" $style 
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].logocolor" $LogoColor 
+                        auspex $defined_sets create "psm.badges[badgetype=$($badge.BadgeType)&platform=$($badge.platform)].outputformat" $OutputFormat    
+                    }
+                    $badges = $defined_sets.psm.badges
                 }
                 'ruby' {
-                    return 'Ruby Project Shields not yet implemented';
+                    $all_scoped_badges = auspex $defined_sets read "ruby.badges[badgetype].BadgeType"
+                    foreach ($badge_type in $all_scoped_badges) {
+                        $platform = auspex $defined_sets read "ruby.badges[badgetype=$badge_type].platform"
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].project $reponame
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].labelcolor $LabelColor 
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].messagecolor $MessageColor 
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].namespace $Namespace 
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].style $style 
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].logocolor $LogoColor 
+                        auspex $defined_sets create ruby.badges[badgetype=$badge_type].outputformat $OutputFormat    
+                    }
+                    $badges = $defined_sets.ruby.badges
                 }
-                'jekyll-theme' {
-                    return 'jekyll-theme Project Shields not yet implemented';
+                'jekyll' {
+                    $all_scoped_badges = auspex $defined_sets read "jekyll.badges[badgetype].BadgeType"
+                    foreach ($badge_type in $all_scoped_badges) {
+                        $platform = auspex $defined_sets read "jekyll.badges[badgetype=$badge_type].platform"
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].project $reponame
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].labelcolor $LabelColor 
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].messagecolor $MessageColor 
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].namespace $Namespace 
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].style $style 
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].logocolor $LogoColor 
+                        auspex $defined_sets create jekyll.badges[badgetype=$badge_type].outputformat $OutputFormat    
+                    }
+                    $badges = $defined_sets.psm.badges
                 }
                 'custom' {
-                    # The Simple Generic Bages 
-                    return 'custom Shields not yet implemented';
+                    # Switch to custom badge intead of sets
+                        @{ Platform = $platform; BadgeType = $BadgeType; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }
 
+                    $badges = @(
+                        @{ Platform = $platform; BadgeType = $BadgeType; Project = $reponame; LabelColor = $LabelColor; MessageColor = $MessageColor; Namespace = $Namespace; Style = $style; LogoColor = $LogoColor; OutputFormat = $OutputFormat }
+                    )
                 }
                 default {
                     if(!$platform -or !$BadgeType) {
@@ -396,11 +513,26 @@ function Invoke-ShieldsCommander {
             [string]$badge_string = ''
 
             foreach ($badge in $badges) {
-                write-host "New-ShieldBadge $($badge.Platform) | $($badge.BadgeType) | $($badge.Project) | $($badge.LabelColor) | $($badge.MessageColor) | $($badge.Namespace) | $($badge.Style) | $($badge.LogoColor)"
-                $badge_string += "$(New-ShieldBadge @badge) "
+                if($BadgeType -eq 'custom') {
+                    write-host "Generating Custom Badge for $($badge.BadgeType) -> $($badge.Platform)"
+                    $badge_string += "$(New-CustomBadge @badge) "
+                }else{
+                    write-host "Generating Set for $($badge.BadgeType) -> $($badge.Platform)"
+                    $badge_string += New-ShieldBadge -platform $badge.Platform `
+                                                     -BadgeType $badge.BadgeType `
+                                                     -Project $badge.Project `
+                                                     -LabelColor $badge.LabelColor `
+                                                     -MessageColor $badge.MessageColor `
+                                                     -Namespace $badge.Namespace `
+                                                     -Style $badge.Style `
+                                                     -LogoColor $badge.LogoColor `
+                                                     -OutputFormat $badge.OutputFormat
+                    $badge_string += ' '
+                }
             }
         
+            # return the final badge string
             return $badge_string;
-        }
+        }ee
     }
 }

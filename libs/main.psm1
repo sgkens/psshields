@@ -1,4 +1,4 @@
-using module .\miniforge.psm1
+using module .\auspex.psm1
 using module ..\cmdlets\Get-PlatformConfig.psm1
 using module .\argumentcompleters.psm1
 

@@ -1,0 +1,118 @@
+{
+    "jsm": {
+        "badges": [
+            {
+                "Platform": "gitlab",
+                "BadgeType": "license"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "pipeline"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "issues"
+            },
+            {
+                "Platform": "jsr",
+                "BadgeType": "version"
+            },
+            {
+                "Platform": "jsdelivr",
+                "BadgeType": "hitsperweek"
+            },
+            {
+                "Platform": "npm",
+                "BadgeType": "sizeMin"
+            },
+            {
+                "Platform": "npm",
+                "BadgeType": "sizeZipped"
+            }
+        ]
+    },
+    "custom": {
+        "badges": [
+            {
+                "Platform": "custom",
+                "BadgeType": "custom"
+            }
+        ]
+    },
+    "jekyll": {
+        "badges": [
+            {
+                "Platform": "gitlab",
+                "BadgeType": "license"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "pipeline"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "issues"
+            },
+            {
+                "Platform": "jekyllthemes",
+                "BadgeType": "version"
+            }
+        ]
+    },
+    "psm": {
+        "badges": [
+            {
+                "Platform": "gitlab",
+                "BadgeType": "license"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "pipeline"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "issues"
+            },
+            {
+                "Platform": "powershell",
+                "BadgeType": "version"
+            },
+            {
+                "Platform": "choco",
+                "BadgeType": "version"
+            },
+            {
+                "Platform": "codecov",
+                "BadgeType": "coverage"
+            }
+        ]
+    },
+    "ruby": {
+        "badges": [
+            {
+                "Platform": "gitlab",
+                "BadgeType": "license"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "pipeline"
+            },
+            {
+                "Platform": "gitlab",
+                "BadgeType": "issues"
+            },
+            {
+                "Platform": "rubygems",
+                "BadgeType": "version"
+            },
+            {
+                "Platform": "rubygems",
+                "BadgeType": "downloads"
+            },
+            {
+                "Platform": "codecov",
+                "BadgeType": "coverage"
+            }
+        ]
+    }
+}
