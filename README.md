@@ -13,7 +13,7 @@
         <a href="https://chocolatey.org/packages/psshields"><b>Chocolatey</b></a>
     </span>
     <hr>
-    <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/license/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='gitlab-license' /></a> <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/pipeline-status/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='gitlab-pipeline' /></a> <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/issues/open/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='gitlab-issues' /></a>  <a href='https://www.powershellgallery.com/packages/psshields' target='_blank'><img src='https://img.shields.io/powershellgallery/v/@phellams/psshields?style=flat-square&logo=powershell&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='powershell-version' /></a> <a href='https://community.chocolatey.org/packages/psshields' target='_blank'><img src='https://img.shields.io/chocolatey/v/@phellams/psshields?style=flat-square&logo=chocolatey&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='choco-version' /></a> <a href='https://img.shields.io/codecov/c/github/phellams/psshields?style=flat-square&logo=codecov&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' target='_blank'><img src='https://img.shields.io/codecov/c/github/phellams/psshields?style=flat-square&logo=codecov&labelColor=%235f0087&color=%23d75fff&logoColor=%23ffffff' alt='codecov-coverage' /></a>
+    <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/license/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='gitlab-license' /></a> <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/pipeline-status/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='gitlab-pipeline' /></a> <a href='https://gitlab.com/phellams' target='_blank'><img src='https://img.shields.io/gitlab/issues/open/phellams/psshields?style=flat-square&logo=gitlab&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='gitlab-issues' /></a>  <a href='https://www.powershellgallery.com/packages/psshields' target='_blank'><img src='https://img.shields.io/powershellgallery/v/@phellams/psshields?style=flat-square&logo=powershell&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='powershell-version' /></a> <a href='https://community.chocolatey.org/packages/psshields' target='_blank'><img src='https://img.shields.io/chocolatey/v/@phellams/psshields?style=flat-square&logo=chocolatey&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='choco-version' /></a> <a href='https://img.shields.io/codecov/c/github/phellams/psshields?style=flat-square&logo=codecov&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' target='_blank'><img src='https://img.shields.io/codecov/c/github/phellams/psshields?style=flat-square&logo=codecov&labelColor=%23080808&color=%236c6c6c&logoColor=%239e9e9e' alt='codecov-coverage' /></a>
     <br><br>
     <img src="https://raw.githubusercontent.com/phellams/phellams-general-resources/main/misc/hr/hr-style-solution.svg" alt="hr-style-solution" >
 </div>
@@ -61,7 +61,11 @@
         - output **Custom Badges** - Create any badge with custom labels, messages, and colors
         - Output **Preview** of all badges
 
-## **Installation** 
+
+## **Installation**
+
+Phellams modules are available from [**PowerShell Gallery**](https://www.powershellgallery.com/packages/commitfusion) and [**Chocolatey**](https://chocolatey.org/packages/commitfusion). you can access the raw assets via [**Gitlab Generic Assets**](https://gitlab.com/phellams/commitfusion/-/packages?orderBy=name&sort=desc&search[]=commitfusion) or nuget repository via [**Gitlab Packages**](https://gitlab.com/phellams/commitfusion/-/packages/?orderBy=name&sort=desc&search[]=commitfusion&type=NuGet).
+
 
 
 |▓▓▓▓▒▒▒▒░░░|▓▓▓▓▒▒▒▒░░░|▓▓▓▓▒▒▒▒░░░|

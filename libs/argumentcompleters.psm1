@@ -1,4 +1,4 @@
-using module .\miniforge.psm1
+using module .\auspex.psm1
 
 <# Class: ColorValidator - Validates color names #>
 class ColorValidator : System.Management.Automation.ValidateArgumentsAttribute {

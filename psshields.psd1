@@ -17,6 +17,7 @@
         'Get-BadgeTypes',
         'Get-PlatformConfig',
         'Get-DefinedColorSets',
+        'Get-DefinedSets',
         'Invoke-ShieldsCommander'
     )
     CmdletsToExport    = @()
@@ -35,6 +36,7 @@
             ProjectUri               = 'https://gitlab.com/phellams/psshields.git'
             IconUri                  = 'https://raw.githubusercontent.com/phellams/phellams-general-resources/main/logos/psshields/dist/png/psshields-128x128.png'
             # CHOCOLATE ---------------------
+            chocoTitle               = 'PsShields CLI - Shield.io Badge Generator'
             ChocoDescription         = 'Generating Shield.io badge URLs and markdown for your README files. Supports 25+ platforms including GitHub, GitLab, Docker, NPM, PyPI, Packagist (PHP/Composer), Crates.io (Rust), Pub.dev (Dart), Hex.pm (Elixir), RubyGems, Maven, Conda, Homebrew, and more!'
             LicenseUrl               = 'https://choosealicense.com/licenses/mit'
             ProjectUrl               = 'https://github.com/phellams/psshields'
