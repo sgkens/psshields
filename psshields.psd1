@@ -1,6 +1,6 @@
 @{
     RootModule         = 'psshields.psm1'
-    ModuleVersion      = '0.5.1'
+    ModuleVersion      = '1.0.0'
     GUID               = '019a8acf-6f78-706b-95f6-5bbeefe81d16'
     Author             = 'Garvey k. Snow'
     CompanyName        = 'Phellams'
@@ -29,7 +29,7 @@
         PSData = @{
             Tags                     = @('shield.io', 'badge', 'CLI', 'PowerShell', 'Documentation', 'readme', 'GitHub', 'GitLab', 'NPM', 'PyPI', 'Packagist', 'Crates', 'Pub.dev', 'Hex.pm', 'RubyGems', 'Maven', 'Conda', 'Homebrew')
             ReleaseNotes             = @{
-                # '1.2.1' = 'Initial release with New-PHWriter cmdlet for custom help formatting and enhanced layout.'
+                '1.0.0' = 'Core engine stabilization with Invoke-ShieldsCommander, auspex integration, and strict linting foundations.'
             }
             RequireLicenseAcceptance = $false
             LicenseUri               = 'https://choosealicense.com/licenses/mit'
