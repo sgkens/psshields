@@ -5,12 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1] - 2026-04-07
+## [0.5.1] - 2026-04-07
 
 ### Changed
 - **CI:** Updated GitLab CI image to `phellams-automator:2.8.0`.
-
-## [1.0.0] - 2026-04-07
 
 ### Added
 - **Core:** `Invoke-ShieldsCommander` as the primary entry point for badge generation.
@@ -19,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Foundations:** Established `CONTEXT-SOURCE/` and strict `PSScriptAnalyzer` rules.
 - **Argument Completion:** Initial foundations for color and badge type tab completion.
 
-### Changed
+### Changed (v0.5.1 refactor)
 - **Architecture:** Replaced `miniforge` dependency with `auspex`.
 - **Structure:** Centralized data definitions into `libs/definitions/`.
 - **README:** Updated visual badges and installation instructions.
